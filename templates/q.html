@@ -15,12 +15,14 @@
         <div class="card">
             <header class="card-header">
                 <p class="card-header-title">
-                  {{ eq.name }} | {{ eq.formula_str }}
+                  {{ eq.formula_str }}
                 </p>
             </header>
             <div class="card-content">
               <div class="media">
                 <div class="media-content">
+                  <p class="title is-4">Formula Name: {{ eq.name }}</p>
+
                   <p class="title is-4">Given: {{ q }}</p>
                 </div>
               </div>

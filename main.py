@@ -68,7 +68,8 @@ def practice_q(q_uuid):
     logged_in = True
     form = CheckAnswer(request.form)
     if q_uuid not in session:
-        abort(404)
+        flash("object not found?", category="warning")
+        return redirect("/")
     eq_id, completed_formula, values_dict, answer, choosen_one = session[q_uuid]
     eq = Formula.query.filter_by(user_id=session["id"], id=eq_id).first_or_404()
 
@@ -77,6 +78,8 @@ def practice_q(q_uuid):
         del session[q_uuid]
         if is_correct:
             flash("Right Answer! mastery++", "success")
+            flash(f"Exact Answer: {answer}", "info")
+
             eq.total_right = eq.total_right + 1
             eq.total_attempts = eq.total_attempts + 1
             db.session.commit()
