@@ -86,6 +86,7 @@ def practice_q(q_uuid):
             return redirect(f"/view_eq/{eq_id}")
         else:
             flash("Wrong Answer! mastery--", "warning")
+            flash(f"Exact Answer: {answer}", "info")
             eq.total_wrong = eq.total_wrong + 1
             eq.total_attempts = eq.total_attempts + 1
             db.session.commit()
