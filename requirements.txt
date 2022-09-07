@@ -1,0 +1,6 @@
+flask
+Flask-SQLAlchemy
+Flask-Session
+Flask-WTF
+sympy
+waitress

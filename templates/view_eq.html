@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block title %}View Formula Details{% endblock %}
+
+
+{% block body %}
+<div class="columns is-centered">
+    <div class="column has-text-centered">
+        <h1 class="title has-text-light">Details:</h1>
+    </div>
+  </div>
+  <br><br>
+<div class="columns is-centered">
+    <div class="column">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                  {{ eq.name }}
+                </p>
+            </header>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">{{ eq.formula_str }}</p>
+                </div>
+              </div>
+          
+              <div class="content">
+                {{ eq.description }}
+                <hr>
+                <p class="is-4">Statistics:</p>
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th><abbr title="Total Attempts">T. Atmpt.</abbr></th>
+                            <th><abbr title="Total Right">T. Rght</abbr></th>
+                            <th><abbr title="Total Right">T. Wrng</abbr></th>
+                            <th><abbr title="Right to total ratio">Mastery</abbr></th>
+                        </tr>
+                    </thead>
+                    
+                <tbody>
+                    <tr>
+                        {% if eq.total_attempts == 0 %}
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+
+                        {% else %}
+                        <td>{{ eq.total_attempts }}</td>
+                        <td>{{ eq.total_right }}</td>
+                        <td>{{ eq.total_wrong }}</td>
+                        <td>{{ (eq.total_right/eq.total_attempts)|round(2) }}</td>
+                        {% endif %}
+                        
+                    </tr>       
+                </tbody>
+            </table>
+              </div>
+
+              <footer class="card-footer">
+                <a href="/practice_eq/{{eq.id}}" class="card-footer-item">Practice</a>
+                <a href="/del_eq/{{eq.id}}" class="card-footer-item has-text-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                
+              </footer>
+
+
+            </div>
+          </div>
+    </div>
+</table>
+</div>
+{% endblock %}

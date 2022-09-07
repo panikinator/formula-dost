@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="/static/bulma.min.css"
+    />
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body class="has-background-dark has-text-light" style="height: 100vh">
+    <section class="section">
+      <div class="container">
+        <nav
+          class="navbar is-black py-3 box"
+          role="navigation"
+          aria-label="main navigation"
+        >
+          <div class="navbar-brand">
+            <a class="navbar-item" href="/"> F(x) </a>
+
+            <a
+              role="button"
+              class="navbar-burger"
+              aria-label="menu"
+              aria-expanded="false"
+              data-target="navbarBasicExample"
+            >
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          </div>
+
+          <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                
+              <a class="navbar-item" href="/"> Home </a>
+              <a class="navbar-item" href="add_eq"> Add New Eq </a>
+
+            </div>
+
+            <div class="navbar-end">
+              <div class="navbar-item">
+                <div class="buttons">
+                  {% if logged_in is defined %}
+                  <a class="button is-primary" href="/logout">
+                    <strong>Log out</strong>
+                  </a>
+                  {% else %}
+                  <a class="button is-primary" href="/register">
+                    <strong>Sign up</strong>
+                  </a>
+                  <a class="button is-light" href="/login"> Log in </a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </section>
+    
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %}
+        <section class="section">
+          <div class="container">
+        <ul class="flashes">
+          {% for category, message in messages %}
+          <li>
+            <div class="notification is-{{category}}">
+              <button class="delete"></button>
+              {{message}}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </section>
+        {% endif %} {% endwith %}
+      
+    <section class="section">
+      
+      <div class="container">{% block body %}{% endblock %}</div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        (document.querySelectorAll(".notification .delete") || []).forEach(
+          ($delete) => {
+            const $notification = $delete.parentNode;
+
+            $delete.addEventListener("click", () => {
+              $notification.parentNode.removeChild($notification);
+            });
+          }
+        );
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(
+          document.querySelectorAll(".navbar-burger"),
+          0
+        );
+
+        // Add a click event on each of them
+        $navbarBurgers.forEach((el) => {
+          el.addEventListener("click", () => {
+            // Get the target from the "data-target" attribute
+            const target = el.dataset.target;
+            const $target = document.getElementById(target);
+
+            // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+            el.classList.toggle("is-active");
+            $target.classList.toggle("is-active");
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

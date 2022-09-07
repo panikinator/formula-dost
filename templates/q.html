@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block title %}Practice Question{% endblock %}
+
+
+{% block body %}
+<div class="columns is-centered">
+    <div class="column has-text-centered">
+        <h1 class="title has-text-light">Practice</h1>
+    </div>
+  </div>
+  <br><br>
+<div class="columns is-centered">
+    <div class="column">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                  {{ eq.name }} | {{ eq.formula_str }}
+                </p>
+            </header>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-content">
+                  <p class="title is-4">Given: {{ q }}</p>
+                </div>
+              </div>
+          
+              <div class="content">
+                <p class="is-4">Variables:</p>
+                <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    
+                <tbody>
+                    {% for k,v in values_dict.items() %}
+                    <tr>
+                        <td>{{k}}</td>
+                        <td>{{v}}</td>
+
+                    </tr>
+                    {% endfor %}    
+                </tbody>
+            </table>
+              </div>
+              <h4 class="is-3 title">Find: "{{ choosen_one }}"</h4>
+
+              <footer class="card-footer">
+                {% set field = form.user_answer %}
+                <form method="POST">
+                    <div class="field">
+                        <label class="label is-medium">{{ field.label }}</label>
+                    
+                        <div class="control">
+                            {{ field(class_="input is-medium")|safe }}
+                        </div>
+                    
+                        <ul class="help is-danger">
+                                {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                                {% endfor %}
+                        </ul>
+                    </div>
+                <div class="field">
+                    <div class="control">
+                    <button class="button is-link" type="submit">Submit</button>
+                    </div>
+                </div>
+                </form>
+                
+              </footer>
+
+
+            </div>
+          </div>
+    </div>
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}Index or something{% endblock %}
+
+
+{% block body %}
+<div class="columns is-centered">
+    <div class="column has-text-centered">
+        <h1 class="title has-text-light is-1">Home Page</h1>
+    </div>
+
+</div>
+<br><br>
+<div class="columns is-centered">
+    {% if not fs %}
+    <div class="column has-text-centered">
+        <h1 class="title has-text-light">No Equations Added Yet!</h1>
+        <a href="/add_eq" class="button is-link">Add one?</a>
+    </div>
+
+    {% else %}
+    <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+        <thead>
+            <tr>
+                <th><abbr title="Formula Name">F.n.</abbr></th>
+                <th><abbr title="Formula">Fx</abbr></th>
+                <th>Detail</th>
+                <th><abbr title="Practice">Prac.</abbr></th>
+                <th><abbr title="Right to total ratio">Mastery</abbr></th>
+            </tr>
+        </thead>
+        
+    <tbody>
+        
+        {% for f in fs %}
+        <tr>
+            <td>{{ f.name }}</td>
+            <td>{{ f.formula_str }}</td>
+            <td><a href="/view_eq/{{f.id}}">Open 🔗</a></td>
+            <td><a href="/practice_eq/{{f.id}}">Open 🔗</a></td>
+
+            {% if f.total_attempts == 0 %}
+            <td>N/A</td>
+            {% else %}
+            <td>{{ (f.total_right/f.total_attempts)|round(2) }}</td>
+            {% endif %}
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}        
+
+</div>
+{% endblock %}

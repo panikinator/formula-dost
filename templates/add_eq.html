@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Add New Equation{% endblock %}
+
+
+{% block body %}
+<div class="columns is-centered">
+  <div class="column has-text-centered">
+      <h1 class="title has-text-light">Add New Equation</h1>
+  </div>
+</div>
+<br><br>
+{% from "_formhelpers.html" import render_field %}
+<form method="post">
+  <dl>
+    {{ render_field(form.name) }}
+    {{ render_field(form.formula_str) }}
+    {{ render_field(form.description) }}
+  </dl>
+  <div class="field">
+    <div class="control">
+      <button class="button is-link" type="submit">Submit</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
